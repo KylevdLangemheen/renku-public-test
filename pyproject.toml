@@ -1,8 +1,8 @@
 [project]
-name = "agentic-workshop"
+name = "agentic-workshop-env"
 version = "0.1.0"
-description = "Shared code for the FCUE LLM agentic workshop hands-on notebooks"
-requires-python = ">=3.12"
+description = "Public environment definition for the agentic workshop Renku session"
+requires-python = ">=3.12,<3.14"
 dependencies = [
     # LLM client & data models
     "openai>=3.20.0",
@@ -25,23 +25,9 @@ dependencies = [
 dev = [
     "pytest>=8.0",
 ]
-# Only for the CLIP extension of M03_04 (pulls in torch, ~600 MB): `uv sync --group visual`
-visual = [
-    "sentence-transformers",
-]
 
-[build-system]
-requires = ["uv_build>=0.11,<0.12"]
-build-backend = "uv_build"
-
-[tool.uv.build-backend]
-module-name = "agentic_workshop"
-module-root = ""
-
-[tool.pytest.ini_options]
-testpaths = ["M06_AI_Code_Development/tests"]
-pythonpath = ["M06_AI_Code_Development"]
-
+[tool.uv]
+package = false      # dependencies only; the real package is installed from the private repo at launch
 
 [[io.buildpacks.build.env]]
 name = "BP_RENKU_AI_AGENTS"
