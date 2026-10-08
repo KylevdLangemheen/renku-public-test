@@ -1,0 +1,48 @@
+[project]
+name = "agentic-workshop"
+version = "0.1.0"
+description = "Shared code for the FCUE LLM agentic workshop hands-on notebooks"
+requires-python = ">=3.12"
+dependencies = [
+    # LLM client & data models
+    "openai>=3.20.0",
+    "pydantic>=2.7",
+    "python-dotenv>=1.0",
+    "tiktoken>=0.7",
+    # Documents
+    "pypdf>=6.19.0",
+    # Data & plotting
+    "numpy",
+    "pandas>=2.2",
+    "matplotlib>=3.9",
+    "pillow>=10.4",
+    # Notebooks
+    "ipykernel>=7.3.0",
+    "jupyter>=1.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+]
+# Only for the CLIP extension of M03_04 (pulls in torch, ~600 MB): `uv sync --group visual`
+visual = [
+    "sentence-transformers",
+]
+
+[build-system]
+requires = ["uv_build>=0.11,<0.12"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "agentic_workshop"
+module-root = ""
+
+[tool.pytest.ini_options]
+testpaths = ["M06_AI_Code_Development/tests"]
+pythonpath = ["M06_AI_Code_Development"]
+
+
+[[io.buildpacks.build.env]]
+name = "BP_RENKU_AI_AGENTS"
+value = "pi"
